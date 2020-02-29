@@ -1,2 +1,10 @@
-# MovieApps-Submission3
-Submission 3 Made 2019
+# MovieApps-Kotlin
+
+Arsitektur 
+- MVVM
+
+Library
+- ReactiveX
+- Pagination
+- Glide
+- Material Design
