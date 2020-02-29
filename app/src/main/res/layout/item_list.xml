@@ -11,11 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cons_movie_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:paddingTop="5dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/img_background_path"
