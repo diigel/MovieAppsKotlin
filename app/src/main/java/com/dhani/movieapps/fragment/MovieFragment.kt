@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dhani.movieapps.R
 import com.dhani.movieapps.adapter.MovieAdapter
 import com.dhani.movieapps.adapter.TvShowAdapter
+import com.dhani.movieapps.network.response.DataResultTv
 import com.dhani.movieapps.network.response.DataResultsMovie
 import com.dhani.movieapps.ui.detail.DetailMovieActivity
 import com.dhani.movieapps.viewModel.MovieViewModel
@@ -75,7 +76,8 @@ class MovieFragment(private val type: String) : Fragment() {
         movieAdapter.setOnItemClickCallback(object : MovieAdapter.OnItemClickCallback {
             override fun onItemClicked(dataMovie: DataResultsMovie) {
                 startActivity(Intent(context,DetailMovieActivity::class.java)
-                    .putExtra("id",dataMovie.id))
+                    .putExtra("id",dataMovie.id)
+                    .putExtra("type","movie"))
             }
 
         })
@@ -91,6 +93,15 @@ class MovieFragment(private val type: String) : Fragment() {
 
         viewModelTv.getLoader().observe(viewLifecycleOwner, Observer {
             tvShowAdapter.setNetworkState(it)
+        })
+
+        tvShowAdapter.setOnItemClickCallback(object : TvShowAdapter.OnItemClickCallback {
+            override fun onItemClicked(dataMovie: DataResultTv) {
+                startActivity(Intent(context,DetailMovieActivity::class.java)
+                    .putExtra("id",dataMovie.id)
+                    .putExtra("type","tvShow"))
+            }
+
         })
     }
 }

@@ -9,7 +9,6 @@ import com.dhani.movieapps.R
 import com.dhani.movieapps.adapter.holder.NetworkStateViewHolder
 import com.dhani.movieapps.adapter.holder.TvShowHolder
 import com.dhani.movieapps.network.response.DataResultTv
-import com.dhani.movieapps.network.response.DataResultsMovie
 import com.dhani.movieapps.utils.DiffUtilsTvShow
 import com.dhani.movieapps.utils.NetworkState
 
@@ -24,7 +23,7 @@ class TvShowAdapter(private var onItemClickCallback: OnItemClickCallback? = null
         val view: View
         return if (viewType == tvShowAdapterType) {
             view = LayoutInflater.from(container.context).inflate(R.layout.item_list, container, false)
-            TvShowHolder(view = view)
+            TvShowHolder(view = view,onItemClickCallback = onItemClickCallback!!)
         } else {
             view = LayoutInflater.from(container.context).inflate(R.layout.no_item_layout, container, false)
             NetworkStateViewHolder(view = view)
@@ -58,7 +57,7 @@ class TvShowAdapter(private var onItemClickCallback: OnItemClickCallback? = null
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(dataMovie: DataResultsMovie)
+        fun onItemClicked(dataMovie: DataResultTv)
     }
 
     private fun hasExtraRow(): Boolean {

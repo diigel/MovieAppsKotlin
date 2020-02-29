@@ -32,11 +32,11 @@ class MainActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 vp_main.currentItem = tab?.position!!
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {}
         })
     }
+
 
     override fun onBackPressed() {
         dialogClose()

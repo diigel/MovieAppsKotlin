@@ -6,41 +6,40 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dhani.movieapps.network.Network
-import com.dhani.movieapps.network.response.DetailMovie
+import com.dhani.movieapps.network.response.DetailTvShow
+import com.dhani.movieapps.network.response.TvShow
 import com.dhani.movieapps.utils.NetworkState
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class DetailMovieViewModel : ViewModel() {
+class DetailTvShowViewModel : ViewModel() {
 
+    private val networkState : MutableLiveData<NetworkState> = MutableLiveData()
+    private val detailTvShowViewModel : MutableLiveData<DetailTvShow> = MutableLiveData()
     private val compositeDisposable = CompositeDisposable()
-    private val detailMovieLiveData : MutableLiveData<DetailMovie> = MutableLiveData()
-    private val netwokState : MutableLiveData<NetworkState> = MutableLiveData()
 
-    fun getDetailMovie(movieId : Int?) : LiveData<DetailMovie>{
-        netwokState.postValue(NetworkState.LOADING)
-        val disposable = Network.getRoutesRx().getDetailMovie(movieId = movieId)
+    fun getTvShow(tvshowId : Int?): LiveData<DetailTvShow>{
+        networkState.postValue(NetworkState.LOADING)
+        val disposable = Network.getRoutesRx().getDetailTvShow(tvShowId = tvshowId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Handler().postDelayed({
-                    netwokState.postValue(NetworkState.LOADED)
-                    if (it != null){
-                        detailMovieLiveData.postValue(it)
-                    }
-                }, 1000)
+                    networkState.postValue(NetworkState.LOADED)
+                    detailTvShowViewModel.postValue(it)
+                },1000)
             },{
-                netwokState.postValue(NetworkState.ERROR)
+                networkState.postValue(NetworkState.ERROR)
                 it.message?.let {
-                    Log.e("Error Detail Response" , it)
+                    Log.e("Error Detail tv ", it)
                 }
             })
         compositeDisposable.add(disposable)
-        return  detailMovieLiveData
+        return detailTvShowViewModel
     }
 
-    fun getLoaded() = netwokState
+    fun getLoaded() = networkState
 
     override fun onCleared() {
         super.onCleared()

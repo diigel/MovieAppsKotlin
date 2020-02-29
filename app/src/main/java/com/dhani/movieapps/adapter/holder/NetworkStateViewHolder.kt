@@ -23,10 +23,13 @@ class NetworkStateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             NetworkState.END_OF_PAGE -> {
                 progress.visibility = View.GONE
                 img_no_item.visibility = View.GONE
+                text_state.visibility = View.VISIBLE
                 text_state.text = networkState.message
             }
             NetworkState.ERROR -> {
                 progress.visibility = View.GONE
+                img_no_item.visibility = View.VISIBLE
+                text_state.visibility = View.VISIBLE
                 Glide.with(this).asDrawable().load(R.drawable.error).into(img_no_item)
                 text_state.text = networkState.message
             }
